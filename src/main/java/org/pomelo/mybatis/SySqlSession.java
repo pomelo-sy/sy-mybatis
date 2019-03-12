@@ -13,7 +13,10 @@ public class SySqlSession {
 	
 	public <T> T getMapper(Class<T> clazz) {
 		return resolver.getMapper(clazz, this);
-		
+	}
+	
+	public <T> T getResult(String statement, String para) {
+		return executor.query(statement, para);
 	}
 
 	public ConfigResolver getResolver() {

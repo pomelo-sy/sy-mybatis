@@ -15,7 +15,9 @@ public class ProxyMapper implements InvocationHandler {
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		
 		if(method.getDeclaringClass().getName().equals(ConfigResolver.UserMapper.namespace)) {
-			
+			String para = String.valueOf(args[0]);
+			String statement = ConfigResolver.UserMapper.mapper.get(method.getName());
+			return sySqlSession.getResult(statement, para);
 		}
 		return method.invoke(args);
 	}
