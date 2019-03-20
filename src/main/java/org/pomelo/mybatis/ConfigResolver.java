@@ -6,22 +6,18 @@ import java.util.Map;
 
 public class ConfigResolver {
 
-	public<T> T getMapper(Class<T> clazz, SySqlSession sySqlSession) {
-		
-		return (T)Proxy.newProxyInstance(clazz.getClassLoader(),  new Class<?>[] {clazz}, new ProxyMapper(sySqlSession));
-	}
-
 	
-	public static class UserMapper{
+	@SuppressWarnings("unchecked")
+	public<T> T getMapper(Class clazz, SessionFactory sf) {
+		return (T)Proxy.newProxyInstance(clazz.getClassLoader(), new Class[] {clazz}, new MapperProxyfor(sf));
+	}
+	
+	
+	static class configurationXml {
 		
-		public static final String namespace = "org.pomelo.mybatis.mapper.UserMapper";
-		
-		public final static Map<String, String> mapper = new HashMap<String, String>();
+		public static Map<String, String> config = new HashMap<String, String>();
 		static {
-			mapper.put("selectByPrimaryKey", "select * from user where id=%d");
+			config.put("findUserByPrimaryKey" ,"select * from User where id = d%" );
 		}
-		
 	}
-	
-	
 }
